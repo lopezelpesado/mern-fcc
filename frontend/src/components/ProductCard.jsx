@@ -7,13 +7,36 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { FaEdit } from "react-icons/fa";
+import { Toaster, toaster } from "@/components/ui/toaster";
 
 import { MdDelete } from "react-icons/md";
 import { useColorModeValue } from "./ui/color-mode";
+import { useProductStore } from "@/store/product";
 
 const ProductCard = ({ product }) => {
   const textColor = useColorModeValue("gray.600", "gray.200");
   const bg = useColorModeValue("white", "gray.800");
+
+  const { deleteProduct } = useProductStore();
+
+  const handleDeleteProduct = async (productId) => {
+    const { success, message } = await deleteProduct(productId);
+
+    if (!success) {
+      toaster.create({
+        title: "Error",
+        description: message,
+        type: "error",
+      });
+    } else {
+      toaster.create({
+        title: "Success",
+        description: message,
+        type: "success",
+      });
+    }
+  };
+
   return (
     <Box
       shadow="lg"
@@ -44,11 +67,12 @@ const ProductCard = ({ product }) => {
           <IconButton>
             <FaEdit />
           </IconButton>
-          <IconButton>
+          <IconButton onClick={() => handleDeleteProduct(product._id)}>
             <MdDelete />
           </IconButton>
         </HStack>
       </Box>
+      <Toaster />
     </Box>
   );
 };

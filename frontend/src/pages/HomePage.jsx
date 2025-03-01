@@ -13,11 +13,11 @@ const HomePage = () => {
 
   return (
     <Container py={12}>
-      <VStack>
+      <VStack spaceY={8}>
         {products.length > 0 ? (
           <>
             <Text
-              fontSize={"30"}
+              fontSize={"2xl"}
               fontWeight={"bold"}
               bgGradient="to-r"
               gradientFrom="cyan.400"
