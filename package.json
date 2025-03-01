@@ -3,8 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon backend/server.js",
-    "format": "prettier --write ."
+    "dev": "NODE_ENV=dev nodemon backend/server.js",
+    "format": "prettier --write .",
+    "build": "npm i && npm i --prefix frontend && npm run build --prefix frontend",
+    "start": "NODE_ENV=prod node backend/server.js"
   },
   "type": "module",
   "keywords": [],
